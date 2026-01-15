@@ -65,11 +65,10 @@
         const btn = document.getElementById('mainBtn');
         if(!e.includes('@') || !q1 || !q2) return alert("All fields are required.");
 
-        btn.innerText = "CONSULTING...";
+        btn.innerText = "SUMMONING...";
         const archs = ["THE LUMINOUS VISIONARY", "THE GOLDEN EMPRESS", "THE OBSIDIAN ARCHITECT", "THE CRYSTAL CURATOR", "THE SILK STRATEGIST"];
         const finalArch = archs[Math.floor(Math.random() * archs.length)];
         
-        // Push data to the hidden form
         const data = { email: e, q1: q1, q2: q2, archetype: finalArch };
         document.getElementById('hPayload').value = JSON.stringify(data);
         document.getElementById('hForm').submit();
@@ -77,13 +76,11 @@
         setTimeout(() => {
             btn.style.display = "none";
             document.getElementById('vault-box').style.display = "block";
-            // Refresh vault to show the result
             document.getElementById('vframe').src += '';
         }, 4000);
     }
-    // SPARKLE SCRIPT
     const canvas=document.getElementById('canvas'),ctx=canvas.getContext('2d');canvas.width=window.innerWidth;canvas.height=window.innerHeight;let p=[];
-    class Part{constructor(){this.x=Math.random()*canvas.width;this.y=Math.random()*canvas.height;this.s=Math.random()*2;this.vx=Math.random()*0.3-0.15;this.vy=Math.random()*0.3-0.15}update(){this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>canvas.width)this.vx*=-1;if(this.y<0||this.y>canvas.height)this.vy*=-1}draw(){ctx.fillStyle='rgba(212,175,55,0.6)';ctx.beginPath();ctx.arc(this.x,this.y,this.s,0,Math.PI*2);ctx.fill()}}
+    class Part{constructor(){this.x=Math.random()*canvas.width;this.y=Math.random()*canvas.height;this.s=Math.random()*2;this.vx=Math.random()*0.3-0.15;this.vy=Math.random()*0.3-0.15}update(){this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>canvas.width)this.vx*=-1;if(this.y<0||this.y>canvas.height)this.vy*=-1}draw(){ctx.fillStyle='rgba(212, 175, 55, 0.6)';ctx.beginPath();ctx.arc(this.x,this.y,this.s,0,Math.PI*2);ctx.fill()}}
     function init(){for(let i=0;i<100;i++)p.push(new Part())}function anim(){ctx.clearRect(0,0,canvas.width,canvas.height);p.forEach(x=>{x.update();x.draw()});requestAnimationFrame(anim)}init();anim();
 </script>
 </body>
