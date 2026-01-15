@@ -6,104 +6,71 @@
     <style>
         body, html { margin: 0; padding: 0; background: #000; color: #D4AF37; font-family: 'Garamond', serif; height: 100vh; overflow: hidden; display: flex; align-items: center; justify-content: center; }
         #canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
-        
-        .oracle-card { 
-            background: rgba(10,10,10,0.95); border: 1px solid #D4AF37; padding: 40px; 
-            border-radius: 30px; text-align: center; max-width: 400px; width: 90%;
-            box-shadow: 0 0 50px rgba(212, 175, 55, 0.2); backdrop-filter: blur(15px);
-            position: relative; z-index: 10;
-        }
-        
-        h1 { letter-spacing: 10px; font-weight: 300; text-transform: uppercase; font-size: 1.6rem; margin-bottom: 10px; text-shadow: 0 0 10px #D4AF37; }
-        .tagline { font-size: 0.7rem; letter-spacing: 4px; opacity: 0.7; margin-bottom: 30px; text-transform: uppercase; color: #fff; }
-
-        select, input { 
-            width: 100%; background: #000; border: 1px solid #D4AF37; color: #fff; 
-            padding: 15px; margin-bottom: 15px; border-radius: 8px; font-family: 'Garamond'; font-size: 0.9rem; box-sizing: border-box;
-            text-align-last: center;
-        }
-
-        .btn-consult { 
-            width: 100%; background: #D4AF37; color: #000; border: none; padding: 18px; 
-            border-radius: 50px; font-weight: bold; text-transform: uppercase; 
-            letter-spacing: 4px; font-size: 0.8rem; cursor: pointer; transition: 0.5s; margin-top: 10px;
-        }
-        .btn-consult:hover { background: #fff; box-shadow: 0 0 30px #D4AF37; transform: scale(1.02); }
-
-        #result-box { margin-top: 30px; display: none; border-top: 1px solid #333; padding-top: 20px; animation: fadeIn 2s; }
-        .archetype-name { font-size: 1.4rem; color: #fff; display: block; margin-top: 10px; text-shadow: 0 0 10px #fff; letter-spacing: 2px; }
-
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .main-container { display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 500px; z-index: 10; }
+        .oracle-card { background: rgba(10,10,10,0.95); border: 1px solid #D4AF37; padding: 30px; border-radius: 20px; text-align: center; width: 90%; box-shadow: 0 0 50px rgba(212, 175, 55, 0.2); backdrop-filter: blur(10px); }
+        h1 { letter-spacing: 10px; font-weight: 300; text-transform: uppercase; font-size: 1.4rem; margin-bottom: 5px; }
+        .tagline { font-size: 0.6rem; letter-spacing: 4px; opacity: 0.7; margin-bottom: 20px; text-transform: uppercase; }
+        select, input { width: 100%; background: #000; border: 1px solid #D4AF37; color: #fff; padding: 12px; margin-bottom: 12px; border-radius: 5px; font-family: 'Garamond'; font-size: 0.8rem; }
+        .btn-consult { width: 100%; background: #D4AF37; color: #000; border: none; padding: 15px; border-radius: 50px; font-weight: bold; text-transform: uppercase; letter-spacing: 3px; cursor: pointer; transition: 0.5s; }
+        .btn-consult:hover { background: #fff; box-shadow: 0 0 20px #D4AF37; }
+        .vault-window { width: 90%; height: 200px; background: #fff; border-top: 2px solid #D4AF37; margin-top: 20px; border-radius: 0 0 15px 15px; overflow: hidden; display: none; }
+        iframe { width: 100%; height: 100%; border: none; }
     </style>
 </head>
 <body>
-
 <canvas id="canvas"></canvas>
-
-<div class="oracle-card">
-    <h1>THE ORACLE</h1>
-    <div class="tagline">Manifest Your Digital Identity</div>
-    
-    <select id="q1">
-        <option value="">Select Power Texture</option>
-        <option value="Molten Gold">Molten Gold</option>
-        <option value="Obsidian Silk">Obsidian Silk</option>
-        <option value="Crystal Quartz">Crystal Quartz</option>
-    </select>
-
-    <select id="q2">
-        <option value="">Select Empire Setting</option>
-        <option value="Parisian Atelier">Parisian Atelier</option>
-        <option value="Zen Sanctuary">Zen Sanctuary</option>
-        <option value="High-Rise Citadel">High-Rise Citadel</option>
-    </select>
-
-    <input type="email" id="email" placeholder="Email to Unlock Your Identity">
-    
-    <button class="btn-consult" id="mainBtn" onclick="revealArchetype()">Consult the Oracle 🥂</button>
-
-    <div id="result-box">
-        <span style="font-size: 0.6rem; letter-spacing: 3px; opacity: 0.6; color:#D4AF37;">SOVEREIGN IDENTITY REVEALED:</span>
-        <span class="archetype-name" id="arch-display">...</span>
-        <p style="margin-top: 15px; font-size: 0.8rem; color: #fff; opacity: 0.8;">Your full profile and 2026 blueprint have been emailed.</p>
+<div class="main-container">
+    <div class="oracle-card">
+        <h1>THE ORACLE</h1>
+        <div class="tagline">Manifest Your Digital Identity</div>
+        <select id="q1">
+            <option value="">Choose Power Texture...</option>
+            <option value="Molten Gold">Molten Gold</option>
+            <option value="Obsidian Silk">Obsidian Silk</option>
+            <option value="Emerald Glass">Emerald Glass</option>
+            <option value="Crushed Velvet">Crushed Velvet</option>
+            <option value="White Marble">White Marble</option>
+            <option value="Liquid Crystal">Liquid Crystal</option>
+            <option value="Raw Linen">Raw Linen</option>
+        </select>
+        <select id="q2">
+            <option value="">Choose Empire Setting...</option>
+            <option value="Parisian Atelier">Parisian Atelier</option>
+            <option value="Midnight Garden">Midnight Garden</option>
+            <option value="Crystal High-Rise">Crystal High-Rise</option>
+            <option value="Desert Mirage">Desert Mirage</option>
+            <option value="Zen Sanctuary">Zen Sanctuary</option>
+            <option value="Nordic Fjord">Nordic Fjord</option>
+            <option value="Ethereal Cloud">Ethereal Cloud</option>
+        </select>
+        <input type="email" id="email" placeholder="Email to Unlock Identity">
+        <button class="btn-consult" id="mainBtn" onclick="revealArchetype()">Consult the Oracle 🥂</button>
+    </div>
+    <div class="vault-window" id="vault-box">
+        <iframe id="vframe" src="https://docs.google.com/document/d/1z6C9T_WUjWzA8R8tZapIhwK6XmAhKj1fFOJFGWq212E/preview"></iframe>
     </div>
 </div>
-
 <script>
-    function revealArchetype() {
-        const email = document.getElementById('email').value;
+    async function revealArchetype() {
+        const e = document.getElementById('email').value;
         const q1 = document.getElementById('q1').value;
         const q2 = document.getElementById('q2').value;
         const btn = document.getElementById('mainBtn');
-
-        if(!email.includes('@') || !q1 || !q2) return alert("All fields are required to summon the Oracle.");
-
-        btn.innerText = "SUMMONING ARCHETYPE...";
-        
-        const archetypes = ["THE LUMINOUS VISIONARY", "THE GOLDEN EMPRESS", "THE OBSIDIAN ARCHITECT", "THE CRYSTAL CURATOR"];
-        const finalArch = archetypes[Math.floor(Math.random() * archetypes.length)];
-
-        // YOUR LIVE SCRIPT URL
-        const scriptURL = "https://script.google.com/macros/s/AKfycbyy0T-N20jkxyhgP5CLVf18nIMU4hhUS2nIfMQmaUbD-KX5kuv2wWH6O6o/exec";
-
-        // Send Lead Data to Gwen
-        fetch(scriptURL, {
-            method: "POST",
-            mode: "no-cors",
-            body: JSON.stringify({ email: email, q1: q1, q2: q2, archetype: finalArch })
-        });
-
+        if(!e.includes('@') || !q1 || !q2) return alert("Required: Email and 2 Selections.");
+        btn.innerText = "SUMMONING...";
+        const archs = ["THE LUMINOUS VISIONARY", "THE GOLDEN EMPRESS", "THE OBSIDIAN ARCHITECT", "THE CRYSTAL CURATOR", "THE SILK STRATEGIST"];
+        const finalArch = archs[Math.floor(Math.random() * archs.length)];
+        const url = "https://script.google.com/macros/s/AKfycbyy0T-N20jkxyhgP5CLVf18nIMU4hhUS2nIfMQmaUbD-KX5kuv2wWH6O6o/exec";
+        await fetch(url, { method: "POST", body: JSON.stringify({ email: e, q1: q1, q2: q2, archetype: finalArch }) });
         setTimeout(() => {
             btn.style.display = "none";
-            document.getElementById('arch-display').innerText = finalArch;
-            document.getElementById('result-box').style.display = "block";
+            document.getElementById('vault-box').style.display = "block";
+            document.getElementById('vframe').src += '';
         }, 3000);
     }
-
-    // LUXE SPARKLE ENGINE
     const canvas=document.getElementById('canvas'),ctx=canvas.getContext('2d');canvas.width=window.innerWidth;canvas.height=window.innerHeight;let p=[];
-    class Part{constructor(){this.x=Math.random()*canvas.width;this.y=Math.random()*canvas.height;this.s=Math.random()*2;this.vx=Math.random()*0.3-0.15;this.vy=Math.random()*0.3-0.15}update(){this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>canvas.width)this.vx*=-1;if(this.y<0||this.y>canvas.height)this.vy*=-1}draw(){ctx.fillStyle='rgba(212, 175, 55, 0.5)';ctx.beginPath();ctx.arc(this.x,this.y,this.s,0,Math.PI*2);ctx.fill()}}
-    function init(){for(let i=0;i<150;i++)p.push(new Part())}function anim(){ctx.clearRect(0,0,canvas.width,canvas.height);p.forEach(x=>{x.update();x.draw()});requestAnimationFrame(anim)}init();anim();
+    class Part{constructor(){this.x=Math.random()*canvas.width;this.y=Math.random()*canvas.height;this.s=Math.random()*2;this.vx=Math.random()*0.3-0.15;this.vy=Math.random()*0.3-0.15}update(){this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>canvas.width)this.vx*=-1;if(this.y<0||this.y>canvas.height)this.vy*=-1}draw(){ctx.fillStyle='rgba(212,175,55,0.6)';ctx.beginPath();ctx.arc(this.x,this.y,this.s,0,Math.PI*2);ctx.fill()}}
+    function init(){for(let i=0;i<100;i++)p.push(new Part())}function anim(){ctx.clearRect(0,0,canvas.width,canvas.height);p.forEach(x=>{x.update();x.draw()});requestAnimationFrame(anim)}init();anim();
 </script>
 </body>
 </html>
