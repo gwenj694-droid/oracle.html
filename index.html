@@ -10,7 +10,7 @@
         .oracle-card { background: rgba(10,10,10,0.95); border: 1px solid #D4AF37; padding: 30px; border-radius: 20px; text-align: center; width: 90%; box-shadow: 0 0 50px rgba(212, 175, 55, 0.2); backdrop-filter: blur(10px); }
         h1 { letter-spacing: 10px; font-weight: 300; text-transform: uppercase; font-size: 1.4rem; margin-bottom: 5px; }
         .tagline { font-size: 0.6rem; letter-spacing: 4px; opacity: 0.7; margin-bottom: 20px; text-transform: uppercase; }
-        select, input { width: 100%; background: #000; border: 1px solid #D4AF37; color: #fff; padding: 12px; margin-bottom: 12px; border-radius: 5px; font-family: 'Garamond'; font-size: 0.8rem; text-align-last: center; }
+        select, input { width: 100%; background: #000; border: 1px solid #D4AF37; color: #fff; padding: 12px; margin-bottom: 12px; border-radius: 5px; font-family: 'Garamond'; font-size: 0.85rem; text-align-last: center; }
         .btn-consult { width: 100%; background: #D4AF37; color: #000; border: none; padding: 15px; border-radius: 50px; font-weight: bold; text-transform: uppercase; letter-spacing: 3px; cursor: pointer; transition: 0.5s; }
         .btn-consult:hover { background: #fff; box-shadow: 0 0 20px #D4AF37; }
         .vault-window { width: 90%; height: 250px; background: #fff; border-top: 2px solid #D4AF37; margin-top: 20px; border-radius: 10px; overflow: hidden; display: none; }
@@ -51,13 +51,8 @@
     </div>
 </div>
 
-<form id="hForm" action="https://script.google.com/macros/s/AKfycbyy0T-N20jkxyhgP5CLVf18nIMU4hhUS2nIfMQmaUbD-KX5kuv2wWH6O6oQf1Hk9kd--g/exec" method="POST" target="h_iframe" style="display:none;">
-    <input type="hidden" name="payload" id="hPayload">
-</form>
-<iframe name="h_iframe" style="display:none;"></iframe>
-
 <script>
-    function revealArchetype() {
+    async function revealArchetype() {
         const e = document.getElementById('email').value;
         const q1 = document.getElementById('q1').value;
         const q2 = document.getElementById('q2').value;
@@ -70,21 +65,24 @@
         const archs = ["THE LUMINOUS VISIONARY", "THE GOLDEN EMPRESS", "THE OBSIDIAN ARCHITECT", "THE CRYSTAL CURATOR", "THE SILK STRATEGIST"];
         const finalArch = archs[Math.floor(Math.random() * archs.length)];
         
-        const data = { email: e, q1: q1, q2: q2, archetype: finalArch };
-        document.getElementById('hPayload').value = JSON.stringify(data);
-        document.getElementById('hForm').submit();
+        // YOUR SCRIPT URL
+        const url = "https://script.google.com/macros/s/AKfycbyy0T-N20jkxyhgP5CLVf18nIMU4hhUS2nIfMQmaUbD-KX5kuv2wWH6O6oQf1Hk9kd--g/exec";
 
-        // REFRESH THE VAULT 3 SECONDS LATER TO SHOW "PROCESSING"
+        // Send data
+        fetch(url, {
+            method: "POST",
+            body: JSON.stringify({ email: e, q1: q1, q2: q2, archetype: finalArch })
+        });
+
+        // REFRESH VAULT 3 SECONDS LATER
         setTimeout(() => {
             btn.style.display = "none";
             document.getElementById('vault-box').style.display = "block";
             vframe.src = vframe.src; 
         }, 3000);
 
-        // REFRESH AGAIN AT 10 SECONDS TO SHOW THE FINAL RESULT
-        setTimeout(() => {
-            vframe.src = vframe.src; 
-        }, 10000);
+        // REFRESH AGAIN AT 12 SECONDS FOR FINAL RESULT
+        setTimeout(() => { vframe.src = vframe.src; }, 12000);
     }
     const canvas=document.getElementById('canvas'),ctx=canvas.getContext('2d');canvas.width=window.innerWidth;canvas.height=window.innerHeight;let p=[];
     class Part{constructor(){this.x=Math.random()*canvas.width;this.y=Math.random()*canvas.height;this.s=Math.random()*2;this.vx=Math.random()*0.3-0.15;this.vy=Math.random()*0.3-0.15}update(){this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>canvas.width)this.vx*=-1;if(this.y<0||this.y>canvas.height)this.vy*=-1}draw(){ctx.fillStyle='rgba(212, 175, 55, 0.6)';ctx.beginPath();ctx.arc(this.x,this.y,this.s,0,Math.PI*2);ctx.fill()}}
