@@ -13,7 +13,7 @@
         select, input { width: 100%; background: #000; border: 1px solid #D4AF37; color: #fff; padding: 12px; margin-bottom: 12px; border-radius: 5px; font-family: 'Garamond'; font-size: 0.8rem; text-align-last: center; }
         .btn-consult { width: 100%; background: #D4AF37; color: #000; border: none; padding: 15px; border-radius: 50px; font-weight: bold; text-transform: uppercase; letter-spacing: 3px; cursor: pointer; transition: 0.5s; }
         .btn-consult:hover { background: #fff; box-shadow: 0 0 20px #D4AF37; }
-        .vault-window { width: 90%; height: 250px; background: #fff; border-top: 2px solid #D4AF37; margin-top: 20px; border-radius: 10px; overflow: hidden; display: none; }
+        .vault-window { width: 100%; height: 250px; background: #fff; border-top: 2px solid #D4AF37; margin-top: 20px; border-radius: 10px; overflow: hidden; display: none; }
         iframe { width: 100%; height: 100%; border: none; }
     </style>
 </head>
@@ -51,7 +51,6 @@
     </div>
 </div>
 
-<!-- THE UNSTOPPABLE FORM -->
 <form id="hForm" action="https://script.google.com/macros/s/AKfycbyy0T-N20jkxyhgP5CLVf18nIMU4hhUS2nIfMQmaUbD-KX5kuv2wWH6O6oQf1Hk9kd--g/exec" method="POST" target="h_iframe" style="display:none;">
     <input type="hidden" name="payload" id="hPayload">
 </form>
@@ -64,7 +63,6 @@
         const q2 = document.getElementById('q2').value;
         const btn = document.getElementById('mainBtn');
         const vframe = document.getElementById('vframe');
-
         if(!e.includes('@') || !q1 || !q2) return alert("Email and 2 choices required.");
 
         btn.innerText = "SUMMONING...";
@@ -79,9 +77,10 @@
             btn.style.display = "none";
             document.getElementById('vault-box').style.display = "block";
             vframe.src = vframe.src; 
-        }, 3000);
-
-        setTimeout(() => { vframe.src = vframe.src; }, 12000);
+        }, 4000);
+        
+        // Final refresh after AI finishes
+        setTimeout(() => { vframe.src = vframe.src; }, 15000);
     }
     const canvas=document.getElementById('canvas'),ctx=canvas.getContext('2d');canvas.width=window.innerWidth;canvas.height=window.innerHeight;let p=[];
     class Part{constructor(){this.x=Math.random()*canvas.width;this.y=Math.random()*canvas.height;this.s=Math.random()*2;this.vx=Math.random()*0.3-0.15;this.vy=Math.random()*0.3-0.15}update(){this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>canvas.width)this.vx*=-1;if(this.y<0||this.y>canvas.height)this.vy*=-1}draw(){ctx.fillStyle='rgba(212, 175, 55, 0.6)';ctx.beginPath();ctx.arc(this.x,this.y,this.s,0,Math.PI*2);ctx.fill()}}
