@@ -1,57 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Sovereign Oracle | Signature 7</title>
     <style>
+        /* LUXE CEO AESTHETIC */
         body, html { margin: 0; padding: 0; background: #000; color: #D4AF37; font-family: 'Garamond', serif; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        
+        /* SPARKLE CANVAS */
         #canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
-        .oracle-card { background: rgba(10,10,10,0.95); border: 1px solid #D4AF37; padding: 40px; border-radius: 20px; text-align: center; width: 400px; z-index: 10; }
-        h1 { letter-spacing: 10px; font-weight: 300; text-transform: uppercase; margin-bottom: 20px; }
-        select, input { width: 100%; background: #000; border: 1px solid #D4AF37; color: #fff; padding: 12px; margin-bottom: 15px; border-radius: 5px; font-family: 'Garamond'; text-align: center; }
-        .btn-gold { width: 100%; background: #D4AF37; color: #000; border: none; padding: 18px; border-radius: 50px; font-weight: bold; text-transform: uppercase; letter-spacing: 3px; cursor: pointer; }
+        
+        .oracle-card { 
+            background: rgba(10,10,10,0.95); 
+            border: 1px solid #D4AF37; 
+            padding: 40px; 
+            border-radius: 20px; 
+            text-align: center; 
+            width: 400px; 
+            z-index: 10; 
+            box-shadow: 0 0 50px rgba(212, 175, 55, 0.3);
+            backdrop-filter: blur(10px);
+        }
+        
+        h1 { letter-spacing: 10px; font-weight: 300; text-transform: uppercase; margin: 0; font-size: 1.6rem; text-shadow: 0 0 10px #D4AF37; }
+        .tagline { font-size: 0.6rem; letter-spacing: 4px; opacity: 0.7; margin-bottom: 30px; text-transform: uppercase; color: #fff; }
+
+        select, input { 
+            width: 100%; 
+            background: #000; 
+            border: 1px solid #D4AF37; 
+            color: #fff; 
+            padding: 12px; 
+            margin-bottom: 15px; 
+            border-radius: 5px; 
+            font-family: 'Garamond'; 
+            font-size: 0.9rem;
+            text-align-last: center;
+            box-sizing: border-box;
+        }
+
+        .btn-gold { 
+            width: 100%; 
+            background: #D4AF37; 
+            color: #000; 
+            border: none; 
+            padding: 18px; 
+            border-radius: 50px; 
+            font-weight: bold; 
+            text-transform: uppercase; 
+            letter-spacing: 3px; 
+            cursor: pointer; 
+            transition: 0.5s;
+            font-size: 0.8rem;
+        }
+        .btn-gold:hover { background: #fff; box-shadow: 0 0 20px #D4AF37; transform: scale(1.02); }
+        
+        ::placeholder { color: rgba(255,255,255,0.5); }
     </style>
 </head>
 <body>
+
 <canvas id="canvas"></canvas>
 
-<!-- DIRECT FORM SUBMISSION -->
-<form class="oracle-card" action="https://script.google.com/macros/s/AKfycbyy0T-N20jkxyhgP5CLVf18nIMU4hhUS2nIfMQmaUbD-KX5kuv2wWH6O6oQf1Hk9kd--g/exec" method="POST" onsubmit="getArchetype()">
+<!-- DIRECT FORM SUBMISSION (UNSTOPPABLE) -->
+<form class="oracle-card" action="https://script.google.com/macros/s/AKfycbyy0T-N20jkxyhgP5CLVf18nIMU4hhUS2nIfMQmaUbD-KX5kuv2wWH6O6oQf1Hk9kd--g/exec" method="POST" onsubmit="generateOracleResult()">
+    
     <h1>THE ORACLE</h1>
-    <p style="font-size: 0.7rem; letter-spacing: 3px; margin-bottom: 20px;">Manifest Your Identity</p>
+    <div class="tagline">Manifest Your 2026 Identity</div>
     
+    <!-- QUESTION 1: TEXTURES -->
     <select name="q1" required>
-        <option value="">-- POWER TEXTURE --</option>
-        <option value="Molten Gold">Molten Gold</option>
-        <option value="Obsidian Silk">Obsidian Silk</option>
-        <option value="White Marble">White Marble</option>
-    </select>
-
-    <select name="q2" required>
-        <option value="">-- EMPIRE SETTING --</option>
-        <option value="Parisian Atelier">Parisian Atelier</option>
-        <option value="Midnight Garden">Midnight Garden</option>
-        <option value="Crystal High-Rise">Crystal High-Rise</option>
-    </select>
-
-    <input type="email" name="email" placeholder="Your Delivery Email" required>
-    
-    <!-- Hidden field for the random result -->
-    <input type="hidden" name="archetype" id="arch_field">
-    
-    <button type="submit" class="btn-gold">Consult the Oracle 🥂</button>
-</form>
-
-<script>
-    function getArchetype() {
-        const archs = ["THE LUMINOUS VISIONARY", "THE GOLDEN EMPRESS", "THE OBSIDIAN ARCHITECT"];
-        document.getElementById('arch_field').value = archs[Math.floor(Math.random() * archs.length)];
-    }
-
-    // SPARKLES
-    const canvas=document.getElementById('canvas'),ctx=canvas.getContext('2d');canvas.width=window.innerWidth;canvas.height=window.innerHeight;let p=[];
-    class Part{constructor(){this.x=Math.random()*canvas.width;this.y=Math.random()*canvas.height;this.s=Math.random()*2;this.vx=Math.random()*0.2-0.1;this.vy=Math.random()*0.2-0.1}update(){this.x+=this.vx;this.y+=this.vy}draw(){ctx.fillStyle='#D4AF37';ctx.beginPath();ctx.arc(this.x,this.y,this.s,0,Math.PI*2);ctx.fill()}}
-    function init(){for(let i=0;i<100;i++)p.push(new Part())}function anim(){ctx.clearRect(0,0,canvas.width,canvas.height);p.forEach(x=>{x.update();x.draw()});requestAnimationFrame(anim)}init();anim();
-</script>
-</body>
-</html>
+        <option value="">-- PICK YOUR POWER TEXTURE --</option>
+        <option value="Molten Gold">1. Molten Gold</option>
+        <option value="Obsidian Silk">2. Obsidian Silk</option>
+        <option value="Emerald Glass">3. Emerald Glass</option>
+        <option value="Crushed Velvet">4. Crushed Velvet</option>
+        <option value="White Marble">5. White Marble</option>
+        <option value="Liquid Crystal">6. Liquid Crystal</option>
+        <option value="Raw Linen">7. Raw Linen</opt
