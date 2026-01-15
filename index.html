@@ -4,13 +4,13 @@
     <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Sovereign Oracle | Signature 7</title>
     <style>
-        body, html { margin: 0; padding: 0; background: #000; color: #D4AF37; font-family: 'Garamond', serif; height: 100vh; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+        body, html { margin: 0; padding: 0; background: #000; color: #D4AF37; font-family: 'Garamond', serif; height: 100vh; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; }
         #canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
         .main-container { display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 500px; z-index: 10; }
         .oracle-card { background: rgba(10,10,10,0.95); border: 1px solid #D4AF37; padding: 30px; border-radius: 20px; text-align: center; width: 90%; box-shadow: 0 0 50px rgba(212, 175, 55, 0.2); backdrop-filter: blur(10px); }
         h1 { letter-spacing: 10px; font-weight: 300; text-transform: uppercase; font-size: 1.4rem; margin-bottom: 5px; }
         .tagline { font-size: 0.6rem; letter-spacing: 4px; opacity: 0.7; margin-bottom: 20px; text-transform: uppercase; }
-        select, input { width: 100%; background: #000; border: 1px solid #D4AF37; color: #fff; padding: 12px; margin-bottom: 12px; border-radius: 5px; font-family: 'Garamond'; font-size: 0.85rem; text-align-last: center; }
+        select, input { width: 100%; background: #000; border: 1px solid #D4AF37; color: #fff; padding: 12px; margin-bottom: 12px; border-radius: 5px; font-family: 'Garamond'; font-size: 0.8rem; text-align-last: center; }
         .btn-consult { width: 100%; background: #D4AF37; color: #000; border: none; padding: 15px; border-radius: 50px; font-weight: bold; text-transform: uppercase; letter-spacing: 3px; cursor: pointer; transition: 0.5s; }
         .btn-consult:hover { background: #fff; box-shadow: 0 0 20px #D4AF37; }
         .vault-window { width: 90%; height: 250px; background: #fff; border-top: 2px solid #D4AF37; margin-top: 20px; border-radius: 10px; overflow: hidden; display: none; }
@@ -51,8 +51,14 @@
     </div>
 </div>
 
+<!-- THE UNSTOPPABLE FORM -->
+<form id="hForm" action="https://script.google.com/macros/s/AKfycbyy0T-N20jkxyhgP5CLVf18nIMU4hhUS2nIfMQmaUbD-KX5kuv2wWH6O6oQf1Hk9kd--g/exec" method="POST" target="h_iframe" style="display:none;">
+    <input type="hidden" name="payload" id="hPayload">
+</form>
+<iframe name="h_iframe" style="display:none;"></iframe>
+
 <script>
-    async function revealArchetype() {
+    function revealArchetype() {
         const e = document.getElementById('email').value;
         const q1 = document.getElementById('q1').value;
         const q2 = document.getElementById('q2').value;
@@ -65,23 +71,16 @@
         const archs = ["THE LUMINOUS VISIONARY", "THE GOLDEN EMPRESS", "THE OBSIDIAN ARCHITECT", "THE CRYSTAL CURATOR", "THE SILK STRATEGIST"];
         const finalArch = archs[Math.floor(Math.random() * archs.length)];
         
-        // YOUR SCRIPT URL
-        const url = "https://script.google.com/macros/s/AKfycbyy0T-N20jkxyhgP5CLVf18nIMU4hhUS2nIfMQmaUbD-KX5kuv2wWH6O6oQf1Hk9kd--g/exec";
+        const data = { email: e, q1: q1, q2: q2, archetype: finalArch };
+        document.getElementById('hPayload').value = JSON.stringify(data);
+        document.getElementById('hForm').submit();
 
-        // Send data
-        fetch(url, {
-            method: "POST",
-            body: JSON.stringify({ email: e, q1: q1, q2: q2, archetype: finalArch })
-        });
-
-        // REFRESH VAULT 3 SECONDS LATER
         setTimeout(() => {
             btn.style.display = "none";
             document.getElementById('vault-box').style.display = "block";
             vframe.src = vframe.src; 
         }, 3000);
 
-        // REFRESH AGAIN AT 12 SECONDS FOR FINAL RESULT
         setTimeout(() => { vframe.src = vframe.src; }, 12000);
     }
     const canvas=document.getElementById('canvas'),ctx=canvas.getContext('2d');canvas.width=window.innerWidth;canvas.height=window.innerHeight;let p=[];
