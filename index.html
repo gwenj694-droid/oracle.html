@@ -78,4 +78,51 @@
         <option value="Crushed Velvet">4. Crushed Velvet</option>
         <option value="White Marble">5. White Marble</option>
         <option value="Liquid Crystal">6. Liquid Crystal</option>
-        <option value="Raw Linen">7. Raw Linen</opt
+        <option value="Raw Linen">7. Raw Linen</option>
+    </select>
+
+    <!-- QUESTION 2: SETTINGS -->
+    <select name="q2" required>
+        <option value="">-- PICK YOUR EMPIRE SETTING --</option>
+        <option value="Parisian Atelier">1. Parisian Atelier</option>
+        <option value="Midnight Garden">2. Midnight Garden</option>
+        <option value="Crystal High-Rise">3. Crystal High-Rise</option>
+        <option value="Desert Mirage">4. Desert Mirage</option>
+        <option value="Zen Sanctuary">5. Zen Sanctuary</option>
+        <option value="Nordic Fjord">6. Nordic Fjord</option>
+        <option value="Ethereal Cloud">7. Ethereal Cloud</option>
+    </select>
+
+    <input type="email" name="email" placeholder="Your Delivery Email" required>
+    
+    <!-- Hidden field for the Archetype Logic -->
+    <input type="hidden" name="archetype" id="archetype_hidden">
+    
+    <button type="submit" class="btn-gold" id="subBtn">Consult the Oracle 🥂</button>
+
+</form>
+
+<script>
+    function generateOracleResult() {
+        const btn = document.getElementById('subBtn');
+        btn.innerText = "SUMMONING ARCHETYPE...";
+        
+        // This picks the archetype before the data is sent to Google
+        const archs = [
+            "THE LUMINOUS VISIONARY", 
+            "THE GOLDEN EMPRESS", 
+            "THE OBSIDIAN ARCHITECT", 
+            "THE CRYSTAL CURATOR", 
+            "THE SILK STRATEGIST"
+        ];
+        document.getElementById('archetype_hidden').value = archs[Math.floor(Math.random() * archs.length)];
+    }
+
+    // SPARKLE PARTICLE ENGINE
+    const canvas=document.getElementById('canvas'),ctx=canvas.getContext('2d');canvas.width=window.innerWidth;canvas.height=window.innerHeight;let p=[];
+    class Part{constructor(){this.x=Math.random()*canvas.width;this.y=Math.random()*canvas.height;this.s=Math.random()*2;this.vx=Math.random()*0.3-0.15;this.vy=Math.random()*0.3-0.15}update(){this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>canvas.width)this.vx*=-1;if(this.y<0||this.y>canvas.height)this.vy*=-1}draw(){ctx.fillStyle='rgba(212, 175, 55, 0.6)';ctx.beginPath();ctx.arc(this.x,this.y,this.s,0,Math.PI*2);ctx.fill()}}
+    function init(){for(let i=0;i<130;i++)p.push(new Part())}function anim(){ctx.clearRect(0,0,canvas.width,canvas.height);p.forEach(x=>{x.update();x.draw()});requestAnimationFrame(anim)}init();anim();
+</script>
+
+</body>
+</html>
