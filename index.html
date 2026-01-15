@@ -10,10 +10,10 @@
         .oracle-card { background: rgba(10,10,10,0.95); border: 1px solid #D4AF37; padding: 30px; border-radius: 20px; text-align: center; width: 90%; box-shadow: 0 0 50px rgba(212, 175, 55, 0.2); backdrop-filter: blur(10px); }
         h1 { letter-spacing: 10px; font-weight: 300; text-transform: uppercase; font-size: 1.4rem; margin-bottom: 5px; }
         .tagline { font-size: 0.6rem; letter-spacing: 4px; opacity: 0.7; margin-bottom: 20px; text-transform: uppercase; }
-        select, input { width: 100%; background: #000; border: 1px solid #D4AF37; color: #fff; padding: 12px; margin-bottom: 12px; border-radius: 5px; font-family: 'Garamond'; font-size: 0.8rem; }
+        select, input { width: 100%; background: #000; border: 1px solid #D4AF37; color: #fff; padding: 12px; margin-bottom: 12px; border-radius: 5px; font-family: 'Garamond'; font-size: 0.8rem; text-align-last: center; }
         .btn-consult { width: 100%; background: #D4AF37; color: #000; border: none; padding: 15px; border-radius: 50px; font-weight: bold; text-transform: uppercase; letter-spacing: 3px; cursor: pointer; transition: 0.5s; }
         .btn-consult:hover { background: #fff; box-shadow: 0 0 20px #D4AF37; }
-        .vault-window { width: 90%; height: 200px; background: #fff; border-top: 2px solid #D4AF37; margin-top: 20px; border-radius: 0 0 15px 15px; overflow: hidden; display: none; }
+        .vault-window { width: 90%; height: 200px; background: #fff; border-top: 2px solid #D4AF37; margin-top: 20px; border-radius: 10px; overflow: hidden; display: none; }
         iframe { width: 100%; height: 100%; border: none; }
     </style>
 </head>
@@ -24,52 +24,61 @@
         <h1>THE ORACLE</h1>
         <div class="tagline">Manifest Your Digital Identity</div>
         <select id="q1">
-            <option value="">Choose Power Texture...</option>
-            <option value="Molten Gold">Molten Gold</option>
-            <option value="Obsidian Silk">Obsidian Silk</option>
-            <option value="Emerald Glass">Emerald Glass</option>
-            <option value="Crushed Velvet">Crushed Velvet</option>
-            <option value="White Marble">White Marble</option>
-            <option value="Liquid Crystal">Liquid Crystal</option>
-            <option value="Raw Linen">Raw Linen</option>
+            <option value="">-- PICK YOUR POWER TEXTURE --</option>
+            <option value="Molten Gold">1. Molten Gold</option>
+            <option value="Obsidian Silk">2. Obsidian Silk</option>
+            <option value="Emerald Glass">3. Emerald Glass</option>
+            <option value="Crushed Velvet">4. Crushed Velvet</option>
+            <option value="White Marble">5. White Marble</option>
+            <option value="Liquid Crystal">6. Liquid Crystal</option>
+            <option value="Raw Linen">7. Raw Linen</option>
         </select>
         <select id="q2">
-            <option value="">Choose Empire Setting...</option>
-            <option value="Parisian Atelier">Parisian Atelier</option>
-            <option value="Midnight Garden">Midnight Garden</option>
-            <option value="Crystal High-Rise">Crystal High-Rise</option>
-            <option value="Desert Mirage">Desert Mirage</option>
-            <option value="Zen Sanctuary">Zen Sanctuary</option>
-            <option value="Nordic Fjord">Nordic Fjord</option>
-            <option value="Ethereal Cloud">Ethereal Cloud</option>
+            <option value="">-- PICK YOUR EMPIRE SETTING --</option>
+            <option value="Parisian Atelier">1. Parisian Atelier</option>
+            <option value="Midnight Garden">2. Midnight Garden</option>
+            <option value="Crystal High-Rise">3. Crystal High-Rise</option>
+            <option value="Desert Mirage">4. Desert Mirage</option>
+            <option value="Zen Sanctuary">5. Zen Sanctuary</option>
+            <option value="Nordic Fjord">6. Nordic Fjord</option>
+            <option value="Ethereal Cloud">7. Ethereal Cloud</option>
         </select>
         <input type="email" id="email" placeholder="Email to Unlock Identity">
         <button class="btn-consult" id="mainBtn" onclick="revealArchetype()">Consult the Oracle 🥂</button>
     </div>
     <div class="vault-window" id="vault-box">
-        <iframe id="vframe" src="https://docs.google.com/document/d/1z6C9T_WUjWzA8R8tZapIhwK6XmAhKj1fFOJFGWq212E/preview"></iframe>
+        <iframe id="vframe" src="https://docs.google.com/document/d/1RETLNyAeK5voXyJgxJxEdVPBS9OW4-qK85AEoBxfYh0/preview"></iframe>
     </div>
 </div>
+
+<form id="hiddenForm" action="https://script.google.com/macros/s/AKfycbyy0T-N20jkxyhgP5CLVf18nIMU4hhUS2nIfMQmaUbD-KX5kuv2wWH6O6oQf1Hk9kd--g/exec" method="POST" target="h_iframe" style="display:none;">
+    <input type="hidden" name="payload" id="formP">
+</form>
+<iframe name="h_iframe" style="display:none;"></iframe>
+
 <script>
-    async function revealArchetype() {
+    function revealArchetype() {
         const e = document.getElementById('email').value;
         const q1 = document.getElementById('q1').value;
         const q2 = document.getElementById('q2').value;
         const btn = document.getElementById('mainBtn');
-        if(!e.includes('@') || !q1 || !q2) return alert("Required: Email and 2 Selections.");
+        if(!e.includes('@') || !q1 || !q2) return alert("Email and choices required.");
         btn.innerText = "SUMMONING...";
         const archs = ["THE LUMINOUS VISIONARY", "THE GOLDEN EMPRESS", "THE OBSIDIAN ARCHITECT", "THE CRYSTAL CURATOR", "THE SILK STRATEGIST"];
         const finalArch = archs[Math.floor(Math.random() * archs.length)];
-        const url = "https://script.google.com/macros/s/AKfycbyy0T-N20jkxyhgP5CLVf18nIMU4hhUS2nIfMQmaUbD-KX5kuv2wWH6O6o/exec";
-        await fetch(url, { method: "POST", body: JSON.stringify({ email: e, q1: q1, q2: q2, archetype: finalArch }) });
+        
+        const data = { email: e, q1: q1, q2: q2, archetype: finalArch };
+        document.getElementById('formP').value = JSON.stringify(data);
+        document.getElementById('hiddenForm').submit();
+
         setTimeout(() => {
             btn.style.display = "none";
             document.getElementById('vault-box').style.display = "block";
             document.getElementById('vframe').src += '';
-        }, 3000);
+        }, 5000);
     }
     const canvas=document.getElementById('canvas'),ctx=canvas.getContext('2d');canvas.width=window.innerWidth;canvas.height=window.innerHeight;let p=[];
-    class Part{constructor(){this.x=Math.random()*canvas.width;this.y=Math.random()*canvas.height;this.s=Math.random()*2;this.vx=Math.random()*0.3-0.15;this.vy=Math.random()*0.3-0.15}update(){this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>canvas.width)this.vx*=-1;if(this.y<0||this.y>canvas.height)this.vy*=-1}draw(){ctx.fillStyle='rgba(212,175,55,0.6)';ctx.beginPath();ctx.arc(this.x,this.y,this.s,0,Math.PI*2);ctx.fill()}}
+    class Part{constructor(){this.x=Math.random()*canvas.width;this.y=Math.random()*canvas.height;this.s=Math.random()*2;this.vx=Math.random()*0.3-0.15;this.vy=Math.random()*0.3-0.15}update(){this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>canvas.width)this.vx*=-1;if(this.y<0||this.y>canvas.height)this.vy*=-1}draw(){ctx.fillStyle='rgba(212, 175, 55, 0.6)';ctx.beginPath();ctx.arc(this.x,this.y,this.s,0,Math.PI*2);ctx.fill()}}
     function init(){for(let i=0;i<100;i++)p.push(new Part())}function anim(){ctx.clearRect(0,0,canvas.width,canvas.height);p.forEach(x=>{x.update();x.draw()});requestAnimationFrame(anim)}init();anim();
 </script>
 </body>
