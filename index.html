@@ -10,26 +10,28 @@
         .oracle-card { 
             background: rgba(10,10,10,0.95); border: 1px solid #D4AF37; padding: 40px; 
             border-radius: 30px; text-align: center; max-width: 400px; width: 90%;
-            box-shadow: 0 0 50px rgba(212, 175, 55, 0.2); backdrop-filter: blur(10px);
+            box-shadow: 0 0 50px rgba(212, 175, 55, 0.2); backdrop-filter: blur(15px);
+            position: relative; z-index: 10;
         }
         
         h1 { letter-spacing: 10px; font-weight: 300; text-transform: uppercase; font-size: 1.6rem; margin-bottom: 10px; text-shadow: 0 0 10px #D4AF37; }
-        p { font-size: 0.8rem; letter-spacing: 2px; opacity: 0.7; margin-bottom: 30px; text-transform: uppercase; }
+        .tagline { font-size: 0.7rem; letter-spacing: 4px; opacity: 0.7; margin-bottom: 30px; text-transform: uppercase; color: #fff; }
 
         select, input { 
             width: 100%; background: #000; border: 1px solid #D4AF37; color: #fff; 
             padding: 15px; margin-bottom: 15px; border-radius: 8px; font-family: 'Garamond'; font-size: 0.9rem; box-sizing: border-box;
+            text-align-last: center;
         }
 
         .btn-consult { 
             width: 100%; background: #D4AF37; color: #000; border: none; padding: 18px; 
-            border-radius: 50px; font-weight: bold; cursor: pointer; text-transform: uppercase; 
-            letter-spacing: 4px; font-size: 0.8rem; transition: 0.5s; margin-top: 10px;
+            border-radius: 50px; font-weight: bold; text-transform: uppercase; 
+            letter-spacing: 4px; font-size: 0.8rem; cursor: pointer; transition: 0.5s; margin-top: 10px;
         }
         .btn-consult:hover { background: #fff; box-shadow: 0 0 30px #D4AF37; transform: scale(1.02); }
 
         #result-box { margin-top: 30px; display: none; border-top: 1px solid #333; padding-top: 20px; animation: fadeIn 2s; }
-        .archetype-name { font-size: 1.4rem; color: #fff; display: block; margin-top: 10px; text-shadow: 0 0 10px #fff; }
+        .archetype-name { font-size: 1.4rem; color: #fff; display: block; margin-top: 10px; text-shadow: 0 0 10px #fff; letter-spacing: 2px; }
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
@@ -40,30 +42,30 @@
 
 <div class="oracle-card">
     <h1>THE ORACLE</h1>
-    <p>Unlock Your Sovereign Identity</p>
+    <div class="tagline">Manifest Your Digital Identity</div>
     
     <select id="q1">
-        <option value="">Choose Your Power Texture...</option>
+        <option value="">Select Power Texture</option>
         <option value="Molten Gold">Molten Gold</option>
         <option value="Obsidian Silk">Obsidian Silk</option>
-        <option value="Liquid Crystal">Liquid Crystal</option>
+        <option value="Crystal Quartz">Crystal Quartz</option>
     </select>
 
     <select id="q2">
-        <option value="">Choose Your Empire Setting...</option>
+        <option value="">Select Empire Setting</option>
         <option value="Parisian Atelier">Parisian Atelier</option>
-        <option value="Midnight Garden">Midnight Garden</option>
-        <option value="Crystal High-Rise">Crystal High-Rise</option>
+        <option value="Zen Sanctuary">Zen Sanctuary</option>
+        <option value="High-Rise Citadel">High-Rise Citadel</option>
     </select>
 
-    <input type="email" id="email" placeholder="Your Email to Receive Reveal">
+    <input type="email" id="email" placeholder="Email to Unlock Your Identity">
     
     <button class="btn-consult" id="mainBtn" onclick="revealArchetype()">Consult the Oracle 🥂</button>
 
     <div id="result-box">
-        <span style="font-size: 0.7rem; letter-spacing: 3px; opacity: 0.6;">YOU HAVE BEEN IDENTIFIED AS:</span>
+        <span style="font-size: 0.6rem; letter-spacing: 3px; opacity: 0.6; color:#D4AF37;">SOVEREIGN IDENTITY REVEALED:</span>
         <span class="archetype-name" id="arch-display">...</span>
-        <p style="margin-top: 15px; font-style: italic; color: #D4AF37;">Check your inbox for your full profile.</p>
+        <p style="margin-top: 15px; font-size: 0.8rem; color: #fff; opacity: 0.8;">Your full profile and 2026 blueprint have been emailed.</p>
     </div>
 </div>
 
@@ -76,14 +78,15 @@
 
         if(!email.includes('@') || !q1 || !q2) return alert("All fields are required to summon the Oracle.");
 
-        btn.innerText = "SUMMONING...";
+        btn.innerText = "SUMMONING ARCHETYPE...";
         
-        const archetypes = ["THE LUMINOUS VISIONARY", "THE GOLDEN EMPRESS", "THE OBSIDIAN ARCHITECT"];
+        const archetypes = ["THE LUMINOUS VISIONARY", "THE GOLDEN EMPRESS", "THE OBSIDIAN ARCHITECT", "THE CRYSTAL CURATOR"];
         const finalArch = archetypes[Math.floor(Math.random() * archetypes.length)];
 
-        // SEND DATA TO YOUR SCRIPT (REPLACE URL BELOW)
-        const scriptURL = "https://script.google.com/macros/s/AKfycbyy0T-N20jkxyhgP5CLVf18nIMU4hhUS2nIfMQmaUbD-KX5kuv2wWH6O6oQf1Hk9kd--g/exec";
+        // YOUR LIVE SCRIPT URL
+        const scriptURL = "https://script.google.com/macros/s/AKfycbyy0T-N20jkxyhgP5CLVf18nIMU4hhUS2nIfMQmaUbD-KX5kuv2wWH6O6o/exec";
 
+        // Send Lead Data to Gwen
         fetch(scriptURL, {
             method: "POST",
             mode: "no-cors",
@@ -100,7 +103,7 @@
     // LUXE SPARKLE ENGINE
     const canvas=document.getElementById('canvas'),ctx=canvas.getContext('2d');canvas.width=window.innerWidth;canvas.height=window.innerHeight;let p=[];
     class Part{constructor(){this.x=Math.random()*canvas.width;this.y=Math.random()*canvas.height;this.s=Math.random()*2;this.vx=Math.random()*0.3-0.15;this.vy=Math.random()*0.3-0.15}update(){this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>canvas.width)this.vx*=-1;if(this.y<0||this.y>canvas.height)this.vy*=-1}draw(){ctx.fillStyle='rgba(212, 175, 55, 0.5)';ctx.beginPath();ctx.arc(this.x,this.y,this.s,0,Math.PI*2);ctx.fill()}}
-    function init(){for(let i=0;i<100;i++)p.push(new Part())}function anim(){ctx.clearRect(0,0,canvas.width,canvas.height);p.forEach(x=>{x.update();x.draw()});requestAnimationFrame(anim)}init();anim();
+    function init(){for(let i=0;i<150;i++)p.push(new Part())}function anim(){ctx.clearRect(0,0,canvas.width,canvas.height);p.forEach(x=>{x.update();x.draw()});requestAnimationFrame(anim)}init();anim();
 </script>
 </body>
 </html>
